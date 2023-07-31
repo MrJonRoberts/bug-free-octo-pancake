@@ -1,0 +1,25 @@
+body {
+    color: #e2e2e2;
+    background-color: #333333;
+    margin: 5px;
+}
+
+#map {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 800px ;
+}
+#add-sighting {
+  background: #333;
+  color: white;
+  font-weight: 400;
+  padding: 1rem;
+  max-width: 200px;
+  line-height: 1.4;
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}

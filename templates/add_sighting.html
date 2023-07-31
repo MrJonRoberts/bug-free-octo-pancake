@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/sighting" method="post">
+    {{ session.name }}
+    <br/>
+    <input type="text" name="name" value="{{ session.name }}">
+    <br/>
+    <input type="text" name="animal">
+    <input type="text" name="latitude" id="latitude">
+    <input type="text" name="longitude" id="longitude">
+    <input type="submit" value="submit">
+
+</form>
+</body>
+<script>
+function success(pos) {
+  const crd = pos.coords;
+
+  console.log("Your current position is:");
+  console.log(`Latitude : ${crd.latitude}`);
+  console.log(`Longitude: ${crd.longitude}`);
+  console.log(`More or less ${crd.accuracy} meters.`);
+  document.getElementById('latitude').value = pos.coords.latitude;
+  document.getElementById('longitude').value = pos.coords.longitude;
+}
+
+function error(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+    // set a default location - this is the center of the map - set to Cairns.
+    var latitude = -16.925491;
+    var longitude = 145.754120;
+    pos = {coords: {latitude: latitude, longitude: longitude} };
+     document.getElementById('latitude').value = pos.coords.latitude;
+  document.getElementById('longitude').value = pos.coords.longitude;
+
+}
+navigator.geolocation.getCurrentPosition(success, error);
+
+
+
+</script>
+</html>
