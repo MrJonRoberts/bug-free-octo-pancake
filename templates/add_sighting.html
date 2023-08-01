@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/sighting" method="post">
+<form action="/sighting" method="post" enctype=multipart/form-data>>
     {{ session.name }}
     <br/>
     <input type="text" name="name" value="{{ session.name }}">
@@ -13,6 +13,8 @@
     <input type="text" name="animal">
     <input type="text" name="latitude" id="latitude">
     <input type="text" name="longitude" id="longitude">
+    <br/>
+    <input type=file name=file  accept="image/png, image/jpeg, image/jpg">
     <input type="submit" value="submit">
 
 </form>

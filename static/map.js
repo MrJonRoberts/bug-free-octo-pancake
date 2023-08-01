@@ -10,10 +10,26 @@ position = {coords: {latitude: latitude, longitude: longitude} };
 mapboxgl.accessToken = access_token;
 
 // get locations
+/*
+if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+                position => {
+                    console.log(position.coords);
+                },
+                error => {
+                    console.log("Error: ", error)
+                },{ enableHighAccuracy: true });
+}
+ */
+
 function getLocation(){
     if (navigator.geolocation) {
         // if we can get the locations then we call the show positions function
         navigator.geolocation.getCurrentPosition(showPosition, showError);
+        // navigator.geolocation.getCurrentPosition(showPosition, showError, { enableHighAccuracy: true });
+
+
+
     } else {
         console.log("Geolocation is not supported by this browser.");
         // call showposition with the default location

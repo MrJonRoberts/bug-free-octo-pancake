@@ -1,11 +1,21 @@
 from flask import Flask, render_template, request, session, redirect
 from flask_session import Session
 import hashlib
+# for file upload
+from werkzeug.utils import secure_filename
+import os
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 app.config['SALT'] = "DSO"
+UPLOAD_FOLDER = 'static/images'
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 Session(app)
 
 @app.route('/')
@@ -50,10 +60,18 @@ def sighting():
         print(f"{session.get('name')}")
         print(f"Animal: {request.form.get('animal')}")
         print(f"lat: {request.form.get('latitude')} long:{request.form.get('longitude')}")
-
+        # file stuff
+        if 'file' not in request.files:
+            print("No file part")
+            # return redirect(request.url)
+        file = request.files['file']
         # link to wildnet db based on animal name.
         # need to get the species id from the api.
-        
+        if file and allowed_file(file.filename):
+
+            filename = f"{session.get('name')}_{secure_filename(file.filename)}"
+            # save file_name_to_db.
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
            # https://www.wildnet.org.au/animal/animal_name
        #https://apps.des.qld.gov.au/species-search/details/?id=583
 
